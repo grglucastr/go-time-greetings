@@ -36,16 +36,21 @@ func loadFile(lang string) []byte {
 
 	filename := "strings.json"
 	var raw []byte
-
+	var err error
 	switch lang {
 	case "en":
-		raw, _ = os.ReadFile(filename)
+		raw, err = os.ReadFile(filename)
 	case "pt_br":
 		filename = "strings-pt_br.json"
-		raw, _ = os.ReadFile(filename)
+		raw, err = os.ReadFile(filename)
 	default:
 		filename = "strings-" + lang + ".json"
 		panic("Error load " + filename)
+	}
+
+	if err != nil {
+		fmt.Println("Deu erro vice...")
+		panic(err)
 	}
 
 	return raw
