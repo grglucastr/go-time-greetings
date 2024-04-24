@@ -2,6 +2,7 @@ package gotimegreetings
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
@@ -13,14 +14,14 @@ func Greet(lang string, hour int) string {
 	json.Unmarshal(content, &result)
 
 	if hour > 17 {
-		return result["goodEvening"]
+		return fmt.Sprintf("%v", result["goodEvening"])
 	}
 
 	if hour > 12 {
-		return result["goodAfternoon"]
+		return fmt.Sprintf("%v", result["goodAfternoon"])
 	}
 
-	return result["goodMorning"]
+	return fmt.Sprintf("%v", result["goodMorning"])
 }
 
 func loadFile(lang string) []byte {
