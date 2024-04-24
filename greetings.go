@@ -1,10 +1,15 @@
 package gotimegreetings
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
-	"os"
 )
+
+//go:embed strings.json
+//go:embed strings-pt_br.json
+//go:embed strings-err.json
+var f embed.FS
 
 func Greet(lang string, hour int) string {
 
@@ -37,12 +42,13 @@ func loadFile(lang string) []byte {
 	filename := "strings.json"
 	var raw []byte
 	var err error
+
 	switch lang {
 	case "en":
-		raw, err = os.ReadFile(filename)
+		raw, err = f.ReadFile(filename)
 	case "pt_br":
 		filename = "strings-pt_br.json"
-		raw, err = os.ReadFile(filename)
+		raw, err = f.ReadFile(filename)
 	default:
 		filename = "strings-" + lang + ".json"
 		panic("Error load " + filename)
