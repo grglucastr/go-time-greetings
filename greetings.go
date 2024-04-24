@@ -14,14 +14,17 @@ func Greet(lang string, hour int) string {
 	json.Unmarshal(content, &result)
 
 	if hour > 17 {
-		return fmt.Sprintf("%v", result["goodEvening"])
+		fmt.Println(result["goodEvening"])
+		return result["goodEvening"]
 	}
 
 	if hour > 12 {
-		return fmt.Sprintf("%v", result["goodAfternoon"])
+		fmt.Println(result["goodAfternoon"])
+		return result["goodAfternoon"]
 	}
 
-	return fmt.Sprintf("%v", result["goodMorning"])
+	fmt.Println(result["goodAfternoon"])
+	return result["goodMorning"]
 }
 
 func loadFile(lang string) []byte {
