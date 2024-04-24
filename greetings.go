@@ -13,6 +13,11 @@ func Greet(lang string, hour int) string {
 	var result map[string]string
 	json.Unmarshal(content, &result)
 
+	fmt.Println("Eita caroço")
+
+	a := fmt.Sprintf("kiding me: %v", result)
+	fmt.Println(a)
+
 	if hour > 17 {
 		fmt.Println(result["goodEvening"])
 		return result["goodEvening"]
