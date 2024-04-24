@@ -3,23 +3,20 @@ package gotimegreetings
 import (
 	"encoding/json"
 	"os"
-	"time"
 )
 
-func Greet(lang string) string {
-
-	t := time.Now()
+func Greet(lang string, hour int) string {
 
 	content := loadFile(lang)
 
 	var result map[string]string
 	json.Unmarshal(content, &result)
 
-	if t.Hour() > 17 {
+	if hour > 17 {
 		return result["goodEvening"]
 	}
 
-	if t.Hour() > 12 {
+	if hour > 12 {
 		return result["goodAfternoon"]
 	}
 
@@ -30,17 +27,15 @@ func loadFile(lang string) []byte {
 
 	filename := "strings.json"
 	var raw []byte
-	var err error
 
 	switch lang {
 	case "en":
-		raw, err = os.ReadFile(filename)
+		raw, _ = os.ReadFile(filename)
 	case "pt_br":
 		filename = "strings-pt_br.json"
-		raw, err = os.ReadFile(filename)
-	}
-
-	if err != nil {
+		raw, _ = os.ReadFile(filename)
+	default:
+		filename = "strings-" + lang + ".json"
 		panic("Error load " + filename)
 	}
 
