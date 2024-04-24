@@ -3,7 +3,6 @@ package gotimegreetings
 import (
 	"embed"
 	"encoding/json"
-	"fmt"
 )
 
 //go:embed strings.json
@@ -18,22 +17,14 @@ func Greet(lang string, hour int) string {
 	var result map[string]string
 	json.Unmarshal(content, &result)
 
-	fmt.Println("Eita caroço")
-
-	a := fmt.Sprintf("kiding me: %v", result)
-	fmt.Println(a)
-
 	if hour > 17 {
-		fmt.Println(result["goodEvening"])
 		return result["goodEvening"]
 	}
 
 	if hour > 12 {
-		fmt.Println(result["goodAfternoon"])
 		return result["goodAfternoon"]
 	}
 
-	fmt.Println(result["goodAfternoon"])
 	return result["goodMorning"]
 }
 
@@ -55,7 +46,6 @@ func loadFile(lang string) []byte {
 	}
 
 	if err != nil {
-		fmt.Println("Deu erro vice...")
 		panic(err)
 	}
 
